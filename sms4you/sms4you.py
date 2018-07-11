@@ -4,6 +4,7 @@
 import os
 import sys
 import argparse
+from core.configuration import Configuration
 
 
 # Handle arguments
@@ -19,11 +20,11 @@ args = parser.parse_args()
 
 def main():
 
+    # Load, prepare and validate configuration
+    config = Configuration(args)
+
     # Check if the flag to only run one direction is set.
     # If nothing is set, both will run (default behaviour).
-
-    config = {}
-
     if args.you2sms:
         _you2sms(config)
     elif args.sms2you:
@@ -48,7 +49,6 @@ def _sms2you(config):
     # Check emails for new messages, loop through them and send one sms for each.
     for message in _check_messages_of('sms'):
         _send_message_to('you', message)
-
 
 def _send_message_to(gateway, message):
     print "send message to " + gateway
