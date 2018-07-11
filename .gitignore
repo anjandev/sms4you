@@ -1,0 +1,10 @@
+*.pyc
+*.log
+*.pkl
+Pipfile
+Pipfile.lock
+
+__pycache__
+.cache
+
+.env
