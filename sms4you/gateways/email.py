@@ -33,8 +33,12 @@ class GatewayEmail(Gateway):
 
         # Close smtp server
         server.quit()
+        print "send message from " + message[0] + " via email"
+
 
     def check(self):
+
+        print "check email messages"
 
         messages = []
 
@@ -56,10 +60,7 @@ class GatewayEmail(Gateway):
             messages = []
             for e_id in unread_msg_nums:
                 _, response = imap.uid('fetch', e_id, '(BODY[1] BODY[HEADER.FIELDS (SUBJECT)])')
-                messages.append([response[1][1], response[0][1]])
-
-        # Format email contents
-        messages = self._format_messages(messages)
+                messages.append(self._format_message(response[1][1], response[0][1]))
 
         # Close imap server session
         imap.logout()
@@ -67,9 +68,12 @@ class GatewayEmail(Gateway):
         # Return the formatted messages
         return (messages)
 
-    def _format_messages(self, messages):
+    def _format_message(self, number, message):
 
-        # Clean up phone number
+        # Clean up number
+        number = number[number.index("+"):].replace('\n', '').replace(' ', '')
+        message = message.replace('\n', ' ')
+
         # Send email back in case of problems
 
-        return messages
+        return [number, message]

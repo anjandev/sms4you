@@ -10,7 +10,7 @@ setup(
     keywords='sms email gateway',
     author='Various collaborators: https://github.com/xamanu/sms4you',
 
-    install_requires=['python-dotenv'],
+    install_requires=['python-dotenv', 'python-gammu'],
     packages=find_packages(),
     include_package_data=True,
     entry_points={
