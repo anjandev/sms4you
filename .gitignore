@@ -1,6 +1,7 @@
 *.pyc
 *.log
 *.pkl
+*.egg-info
 Pipfile
 Pipfile.lock
 
@@ -8,3 +9,5 @@ __pycache__
 .cache
 
 .env
+build
+dist

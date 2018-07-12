@@ -10,8 +10,8 @@ jobs:
   include:
     - stage: pep8
       before_script: pip install pep8
-      script: pep8 --show-pep8 --max-line-length=100 osm2gtfs
+      script: pep8 --show-pep8 --max-line-length=100 sms4you
 
     - stage: pylint
       before_script: pip install pylint
-      script: pylint --disable=C,R osm2gtfs
+      script: pylint --disable=C,R sms4you
