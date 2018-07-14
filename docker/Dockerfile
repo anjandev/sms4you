@@ -1,65 +1,32 @@
-FROM python:2.7-onbuild
+FROM debian:stretch-slim
 
-ENV DEBIAN_FRONTEND noninteractive
-ENV SHELL /bin/bash
-ENV TERM xterm
+# update and upgrade
+RUN export DEBIAN_FRONTEND=noninteractive \
+    && apt-get update -y && apt-get install -y --no-install-recommends \
+    curl \
+    ca-certificates \
+    gammu \
+    # gammu-smsd \
+    python-gammu \
+    python-pip \
+    python-virtualenv \
+    unzip \
+    && apt-get clean -y \
+    && rm -rf /var/lib/apt/lists/*
 
-# default necessary packages
-RUN \
-  apt-get update && \
-  apt-get install -y curl && \
-  apt-get install -y python && \
-  apt-get install -y git-core && \
-  apt-get install -y libmysqlclient-dev && \
-  apt-get install -y cmake
+# install sms4you
+ADD https://github.com/xamanu/sms4you/archive/master.zip sms4you.zip
+RUN unzip sms4you.zip \
+    && rm sms4you.zip \
+    && mv /sms4you-master /sms4you
 
-# installing gammu
-RUN \
-  mkdir -p /usr/src/gammu && \
-  mkdir -p /var/log/gammu && \
-  git clone https://github.com/gammu/gammu.git /usr/src/gammu && \
-  (cd /usr/src/gammu; git checkout tags/1.39.0 -b 1.39.0) && \
-  (cd /usr/src/gammu; ./configure) && \
-  (cd /usr/src/gammu; make) && \
-  (cd /usr/src/gammu; make install)
-# fixing error gammu-smsd: error while loading shared libraries: libGammu.so.7:
-# cannot open shared object file: No such file or directory
-# http://comments.gmane.org/gmane.linux.drivers.gammu/10260
-RUN ldconfig
+WORKDIR /sms4you
 
-# python app port
-EXPOSE 5000
+RUN pip install setuptools
+RUN pip install -e .
 
-# running python app
-CMD ["bin/run"]
+ADD files/start.sh /start.sh
+COPY files/gammu-smsdrc /etc/gammu-smsdrc
+COPY files/gammurc /root/.gammurc
 
-
-FROM debian:strech
-
-VOLUME ["/etc/postfix"]
-VOLUME ["/var/spool/gammu"]
-
-EXPOSE 25
-
-# apt-get install postfix liblog-log4perl-perl gammu ddclient
-
-# postmap /etc/postfix/virtual 
-# /etc/gammu-smsdrc
-# /usr/local/bin/sms2mail.pl
-# /usr/local/bin/smsgw.pl
-# chmod o+rx /usr/local/bin/smsgw.pl
-# chmod 700 /usr/local/bin/sms2mail.pl 
- 
-# /etc/init.d/gammu-smsd restart
- 
-tail -f /var/log/mail.log 
-
-
-# mail -s "Test mail" -r 017696189204@sms.delattre.de sms@delattre.de < foo.txt 
-
-
-
-ENV DEBIAN_FRONTEND noninteractive
-
-
-CMD [ "start.sh", "start" ]
+ENTRYPOINT ["/start.sh"]

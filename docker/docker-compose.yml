@@ -1,7 +1,12 @@
 version: '2'
-
-networks:
-  web:
-    driver: "bridge"
-
 services:
+  sms4you:
+    image: xamanu/sms4you
+    devices:
+      - "/dev/ttyUSB0:/dev/mobile"
+    environment:
+      SMS4YOU_EMAIL_USERNAME:
+      SMS4YOU_EMAIL_PASSWORD:
+      SMS4YOU_SMTP_HOST:
+      SMS4YOU_IMAP_HOST:
+      SMS4YOU_TARGET_EMAIL:

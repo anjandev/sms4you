@@ -29,6 +29,8 @@ There can be many reasons, why you want to use `sms4you`. Here are some examples
 
 ### Docker
 
-**TODO** A simple dockerized setup
+A simple dockerized setup, based on [docker compose](https://docs.docker.com/compose/).
 
-`docker run -t -i --device=/dev/ttyUSB0 sms4you bash`
+* `wget https://raw.githubusercontent.com/xamanu/sms4you/master/docker/docker-compose.yml`
+* Adjust the environment variables in the downloaded file with your settings.
+* `docker-compose run sms4you`

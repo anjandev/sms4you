@@ -11,3 +11,5 @@ __pycache__
 .env
 build
 dist
+docker/.env
+docker-compose.yml

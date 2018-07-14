@@ -29,6 +29,11 @@ class Configuration(object):
                 "Error: Required environment variable SMS4YOU_EMAIL_USERNAME is not set" + "\n")
             sys.exit()
 
+        if self.email_username == None:
+            sys.stderr.write(
+                "Error: Required environment variable SMS4YOU_EMAIL_USERNAME is not set" + "\n")
+            sys.exit()            
+
         #
         try:
             self.email_password = os.environ.get('SMS4YOU_EMAIL_PASSWORD')
@@ -37,10 +42,20 @@ class Configuration(object):
                 "Error: Required environment variable SMS4YOU_EMAIL_PASSWORD is not set" + "\n")
             sys.exit()
 
+        if self.email_username == None:
+            sys.stderr.write(
+                "Error: Required environment variable SMS4YOU_EMAIL_PASSWORD is not set" + "\n")
+            sys.exit()
+
         #
         try:
             self.email_smtp_host = os.environ.get('SMS4YOU_SMTP_HOST')
         except AttributeError:
+            sys.stderr.write(
+                "Error: Required environment variable SMS4YOU_SMTP_HOST is not set" + "\n")
+            sys.exit()
+
+        if self.email_username == None:
             sys.stderr.write(
                 "Error: Required environment variable SMS4YOU_SMTP_HOST is not set" + "\n")
             sys.exit()
@@ -54,6 +69,12 @@ class Configuration(object):
             sys.stderr.write(
                 "Error: Required environment variable SMS4YOU_IMAP_HOST is not set" + "\n")
             sys.exit()
+
+        if self.email_username == None:
+            sys.stderr.write(
+                "Error: Required environment variable SMS4YOU_IMAP_HOST is not set" + "\n")
+            sys.exit()
+
         #
         self.email_imap_port = os.getenv('SMS4YOU_IMAP_PORT', 993)
 
@@ -61,6 +82,11 @@ class Configuration(object):
         try:
             self.target_email = os.environ.get('SMS4YOU_TARGET_EMAIL')
         except AttributeError:
+            sys.stderr.write(
+                "Error: Required environment variable SMS4YOU_TARGET_EMAIL is not set" + "\n")
+            sys.exit()
+
+        if self.email_username == None:
             sys.stderr.write(
                 "Error: Required environment variable SMS4YOU_TARGET_EMAIL is not set" + "\n")
             sys.exit()

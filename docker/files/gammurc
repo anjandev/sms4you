@@ -1,0 +1,7 @@
+# Configuration of Gammu library, see gammurc
+
+[gammu]
+device = /dev/mobile
+name = Mobile
+connection = at
+
