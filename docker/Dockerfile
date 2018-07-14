@@ -26,6 +26,7 @@ RUN pip install setuptools
 RUN pip install -e .
 
 ADD files/start.sh /start.sh
+COPY files/sms.py /sms.py
 COPY files/gammu-smsdrc /etc/gammu-smsdrc
 COPY files/gammurc /root/.gammurc
 
