@@ -2,6 +2,7 @@
 
 Easy gateway to send and receive SMS via email. _(To be extended to work with other protocols like XMPP or Matrix)_
 
+![sms4you on a Raspberry Pi](./sms4you-raspberry-pi.jpg)
 
 ## Idea
 
