@@ -17,7 +17,7 @@ class GatewaySms(Gateway):
         sms = {
             'Number': message[0],
             'SMSC': {'Location': 1},
-            'Text': message[1],
+            'Text': message[1].decode('utf8'),
         }
 
         sm.SendSMS(sms)
