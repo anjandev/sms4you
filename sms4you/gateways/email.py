@@ -71,8 +71,8 @@ class GatewayEmail(Gateway):
     def _format_message(self, number, message):
 
         # Clean up number
-        number = number[number.index("+"):].replace('\n', '').replace(' ', '')
-        message = message.replace('\n', ' ')
+        number = number[number.index("+"):].replace('\n', '').replace(' ', '').replace('\r', '')
+        message = message.replace('\n', ' ').replace('\r', '')
 
         # Send email back in case of problems
 
