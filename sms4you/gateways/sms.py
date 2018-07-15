@@ -20,9 +20,9 @@ class GatewaySms(Gateway):
             'Text': message[1],
         }
 
-        print "send message via sms to " + message[0]
-
         sm.SendSMS(sms)
+        print "sent message via sms to " + message[0]
+
         sm.Terminate()
 
     def check(self):
@@ -47,13 +47,14 @@ class GatewaySms(Gateway):
                     sms = sm.GetNextSMS(Start=True, Folder=0)
                     start = False
                 else:
-                    sms = sm.GetNextSMS(
-                        Location=sms[0]['Location'], Folder=0
-                    )
-                remain = remain - len(sms)
-
+                    sms = sm.GetNextSMS(Location=location, Folder=0)
+                    
                 for m in sms:
                     messages.append([m['Number'], m['Text']])
+
+                location = sms[0]['Location']
+                remain = remain - len(sms)
+                sm.DeleteSMS(Location=location, Folder=0)
 
         except:
             # This error is raised when we've reached last entry - gammu.ERR_EMPTY
