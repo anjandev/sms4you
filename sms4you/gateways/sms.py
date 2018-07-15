@@ -10,21 +10,20 @@ class GatewaySms(Gateway):
 
     def send(self, message):
 
-        print "num: " + message[0]
-        print " -- text: " + message[1]
-        
         sm = gammu.StateMachine()
         sm.ReadConfig()
         sm.Init()
 
         sms = {
-            'Text': message[1],
-            'SMSC': {'Location': 1},
             'Number': message[0],
+            'SMSC': {'Location': 1},
+            'Text': message[1],
         }
 
-        sm.SendSMS(sms)
         print "send message via sms to " + message[0]
+
+        sm.SendSMS(sms)
+        sm.Terminate()
 
     def check(self):
 
@@ -61,5 +60,6 @@ class GatewaySms(Gateway):
             # It can happen when reported status does not match real counts
             print('Failed to read sms messages!')
 
+        sm.Terminate()
         return messages
 
