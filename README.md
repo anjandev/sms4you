@@ -25,7 +25,12 @@ There can be many reasons, why you want to use `sms4you`. Here are some examples
 
 ### Manually
 
-**TODO**
+* Install dependencies: `apt-get install gammu python-gammu python-pip python-virtualenv`
+* Download the code: `git clone https://github.com/xamanu/sms4you.git`
+* Go into the new directory: `cd sms4you`
+* Install python dependencies: `pip install -e .`
+* Copy and edit the configuration file: `cp env-example .env`
+* Run the program to check and send emails and sms: `sms4you`
 
 ### Docker
 
