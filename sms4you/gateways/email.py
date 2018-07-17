@@ -23,9 +23,9 @@ class GatewayEmail(Gateway):
         msg['From'] = fromaddr
         msg['To'] = toaddr
         msg['Subject'] = message[0]        
-        body = message[1]
-        msg.attach(MIMEText(body, 'plain'))
-        
+        body = message[1].encode('utf-8')
+        msg.attach(MIMEText(body, 'plain', 'utf-8'))
+
         # Send email
         server = smtplib.SMTP_SSL(self.config.email_smtp_host, self.config.email_smtp_port)
         server.login(self.config.email_username, self.config.email_password)
@@ -44,7 +44,7 @@ class GatewayEmail(Gateway):
 
         # Open connection to IMAP server
         imap = imaplib.IMAP4_SSL(self.config.email_imap_host, self.config.email_imap_port)
-        
+
         # Login and get list of unread emails
         try:
             imap.login(self.config.email_username, self.config.email_password)
