@@ -33,6 +33,9 @@ There can be many reasons, why you want to use `sms4you`. Here are some examples
 * Copy and edit the configuration file: `cp env-example .env`
 * Run the program to check and send emails and sms: `sms4you`
 
+* Probably you want configure a cronjob to check regularily for sms and emails:
+  `* * * * * . /path/to/your/sms4you/.env; sms4you`
+
 ### Docker
 
 A simple dockerized setup, based on [docker compose](https://docs.docker.com/compose/).
@@ -40,3 +43,6 @@ A simple dockerized setup, based on [docker compose](https://docs.docker.com/com
 * `wget https://raw.githubusercontent.com/xamanu/sms4you/master/docker/docker-compose.yml`
 * Adjust the environment variables in the downloaded file with your settings.
 * `docker-compose run sms4you`
+
+
+

@@ -1,0 +1,2 @@
+* * * * * root sms4you >> /var/log/cron.log 2>&1
+* * * * * root echo "Hello world" >> /var/log/cron.log 2>&1

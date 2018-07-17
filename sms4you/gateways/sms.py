@@ -63,4 +63,3 @@ class GatewaySms(Gateway):
 
         sm.Terminate()
         return messages
-

@@ -1,20 +1,33 @@
 #!/usr/bin/env bash
 
+# Run sms4you once
+if [ "$1" == "execute" ]; then
+    sms4you "$@"
 
-# Simple sms send
-if [ "$1" == "send" ]; then
+# Start sms4you "daemon"
+elif [ "$1" == "daemon" ]; then
+
+    # start cron
+    service cron start
+
+    # trap SIGINT and SIGTERM signals and gracefully exit
+    trap "service cron stop; kill \$!; exit" SIGINT SIGTERM
+
+    # start "daemon"
+    while true
+    do
+        # watch /var/log/cron.log restarting if necessary
+        cat /var/log/cron.log & wait $!
+    done
+
+# Simple sms send (for testing purposes)
+elif [ "$1" == "send" ]; then
     python /sms.py "$@"
 
-# Start sms daemon
-elif [ "$1" == "smsd" ]; then
-    gammu-smsd "$@"
-
+# Execute gammu directly (for testing purposes)
 elif  [ "$1" == "gammu" ]; then
     gammu "$@"
 
-# Run sms4you script
 else
-    sms4you "$@"
+    echo "FAILED: No valid command found."
 fi
-
-
