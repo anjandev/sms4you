@@ -1,2 +1,2 @@
-* * * * * root sms4you >> /var/log/cron.log 2>&1
-* * * * * root echo "Hello world" >> /var/log/cron.log 2>&1
+SHELL=/bin/bash
+* * * * * root cd /sms4you && python sms4you/sms4you.py >> /var/log/cron.log 2>&1

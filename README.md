@@ -30,11 +30,11 @@ There can be many reasons, why you want to use `sms4you`. Here are some examples
 * Download the code: `git clone https://github.com/xamanu/sms4you.git`
 * Go into the new directory: `cd sms4you`
 * Install python dependencies: `pip install -e .`
-* Copy and edit the configuration file: `cp env-example .env`
+* Copy and edit the configuration file: `mkdir data && cp env-example data/.env`
 * Run the program to check and send emails and sms: `sms4you`
 
 * Probably you want configure a cronjob to check regularily for sms and emails:
-  `* * * * * . /path/to/your/sms4you/.env; sms4you`
+  `* * * * * root sms4you`
 
 ### Docker
 
