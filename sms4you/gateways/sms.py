@@ -14,10 +14,17 @@ class GatewaySms(Gateway):
         sm.ReadConfig()
         sm.Init()
 
+        # Decode different encodings from emails
+        for i in ['utf8', 'latin-1', 'ascii']:
+            try:
+                text = message[1].decode(i)
+            except UnicodeDecodeError:
+                pass
+
         sms = {
             'Number': message[0],
             'SMSC': {'Location': 1},
-            'Text': message[1].decode('utf8'),
+            'Text': text,
         }
 
         sm.SendSMS(sms)
