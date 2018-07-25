@@ -1,2 +1,3 @@
-SHELL=/bin/bash
-* * * * * root cd /sms4you && python sms4you/sms4you.py >> /var/log/cron.log 2>&1
+PYTHONPATH=/usr/lib/python2.7:/usr/lib/python2.7/plat-x86_64-linux-gnu:/usr/lib/python2.7/lib-tk:/usr/lib/python$
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+* * * * * root cd /sms4you && sms4you >> /var/log/cron.log 2>&1
